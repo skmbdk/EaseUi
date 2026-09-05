@@ -6,6 +6,31 @@ import CodeBlock from "@/components/Personal/CodeBlock";
 import { ArrowRight, Sparkles, Zap, Palette, Code2 } from "lucide-react";
 import { useSelector } from "react-redux";
 
+const EaseBadgeIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <defs>
+      <linearGradient id="easeBadgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4f46e5" />
+        <stop offset="50%" stopColor="#6366f1" />
+        <stop offset="100%" stopColor="#9333ea" />
+      </linearGradient>
+    </defs>
+    <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#easeBadgeGrad)" />
+    <path
+      d="M7 8H17 M7 12H14 M7 16H17"
+      stroke="#ffffff"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+    />
+    <circle cx="16" cy="12" r="1.5" fill="#c084fc" />
+  </svg>
+);
+
 const HomePage = () => {
   const navigate = useNavigate();
   const { mode } = useSelector(
@@ -33,13 +58,13 @@ function App() {
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <div
-          className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-semibold transition-colors ${
+          className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border text-sm font-semibold transition-all shadow-xs ${
             isDark
               ? "bg-indigo-950/60 border-indigo-800 text-indigo-300"
-              : "bg-indigo-50 border-indigo-200 text-indigo-700"
+              : "bg-indigo-50/90 border-indigo-200 text-indigo-700"
           }`}
         >
-          <Sparkles size={16} />
+          <EaseBadgeIcon className="w-4 h-4 shrink-0 shadow-xs" />
           <span>Modern React & Tailwind UI Library</span>
         </div>
 
