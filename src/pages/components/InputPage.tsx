@@ -1,4 +1,4 @@
-import ComponentDemo from "@/pages/ComponentsDemo"; // your reusable ComponentDemo
+import ComponentDemo from "@/pages/ComponentsDemo";
 import PropsTable from "@/components/Personal/PropsTable";
 import { Input } from "@/components";
 import { PasswordInput } from "@/components/Input/PasswordInput";
@@ -9,19 +9,27 @@ import {
   NumberInput,
 } from "@/components/Input";
 import { Search } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const InputPage = () => {
+  const { mode } = useSelector(
+    (state: { theme: { mode: "light" | "dark" } }) => state.theme
+  );
+  const isDark = mode === "dark";
+
   const variantsCode = `<div className="flex flex-col gap-4">
-    <Input placeholder="Default input" />
-    <Input placeholder="Outline input" />
-    <Input placeholder="Disabled input" disabled />
-  </div>`;
+  <Input label="Full Name" placeholder="Enter your name" size="sm" />
+  <Input label="Email" type="email" placeholder="Enter your email" size="md" />
+  <Input label="Work Email" type="email" placeholder="Enter your work email" size="lg" />
+</div>`;
 
   const sizesCode = `<div className="flex flex-col gap-4">
-    <Input placeholder="Small input" className="py-1 text-sm" />
-    <Input placeholder="Medium input" className="py-2 text-base" />
-    <Input placeholder="Large input" className="py-3 text-lg" />
-  </div>`;
+  <AnimatedInput label="Animated" placeholder="Focus me" />
+  <FloatingLabelInput label="Floating" placeholder="" />
+  <InputWithIcon label="Search" icon={<Search />} />
+  <PasswordInput label="Password" />
+  <NumberInput label="Age" onChange={(v) => console.log(v)} />
+</div>`;
 
   const propsData = [
     {
@@ -37,36 +45,47 @@ const InputPage = () => {
       description: "Input type (text, password, email, etc.)",
     },
     {
-      prop: "value",
+      prop: "label",
       type: "string",
       default: "undefined",
-      description: "Value of the input",
+      description: "Label text rendered above the input",
     },
     {
-      prop: "onChange",
-      type: "(e: React.ChangeEvent<HTMLInputElement>) => void",
+      prop: "size",
+      type: '"sm" | "md" | "lg"',
+      default: '"md"',
+      description: "Controls the padding and text size of the input",
+    },
+    {
+      prop: "error",
+      type: "string",
       default: "undefined",
-      description: "Change event handler",
+      description: "Error message string displayed in red below the input",
     },
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-4 space-y-12">
+    <div className={`max-w-4xl mx-auto p-4 space-y-12 transition-colors duration-200 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold tracking-tight">Input</h1>
-        <p className="text-gray-600 text-lg">
-          Input component for user forms with standard styling and easy
-          customization.
+        <h1 className={`text-4xl font-bold tracking-tight ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          Input
+        </h1>
+        <p className={`text-lg ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+          Input component for user forms with standard styling and easy customization.
         </p>
       </div>
 
       <section className="space-y-4 flex flex-col gap-10">
-        <h2 className="text-2xl font-semibold">Examples</h2>
+        <h2 className={`text-2xl font-semibold ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          Examples
+        </h2>
 
         <div className="space-y-2">
-          <h3 className="text-lg font-medium">Normal</h3>
+          <h3 className={`text-lg font-medium ${isDark ? "text-gray-200" : "text-gray-800"}`}>
+            Standard Inputs
+          </h3>
           <ComponentDemo code={variantsCode}>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full max-w-md">
               <Input
                 label="Full Name"
                 placeholder="Enter your name"
@@ -76,14 +95,12 @@ const InputPage = () => {
                 label="Email"
                 type="email"
                 placeholder="Enter your email"
-                // variant="success"
                 size="md"
               />
               <Input
-                label="Email"
+                label="Work Email"
                 type="email"
-                placeholder="Enter your email"
-                // variant="success"
+                placeholder="Enter your work email"
                 size="lg"
               />
             </div>
@@ -91,9 +108,11 @@ const InputPage = () => {
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-lg font-medium">Password Type</h3>
+          <h3 className={`text-lg font-medium ${isDark ? "text-gray-200" : "text-gray-800"}`}>
+            Interactive Input Types
+          </h3>
           <ComponentDemo code={sizesCode}>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full max-w-md">
               <AnimatedInput label="Animated" placeholder="Focus me" />
               <FloatingLabelInput label="Floating" placeholder="" />
               <InputWithIcon label="Search" icon={<Search />} />
@@ -105,7 +124,9 @@ const InputPage = () => {
       </section>
 
       <section className="space-y-2">
-        <h2 className="text-2xl font-semibold">API Reference</h2>
+        <h2 className={`text-2xl font-semibold ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          API Reference
+        </h2>
         <PropsTable data={propsData} />
       </section>
     </div>

@@ -1,22 +1,26 @@
 @import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --bg-color: #ffffff;
-  --text-color: #000000;
-  --primary-color: #2563eb;
-  /* --card-bg: #f3f4f6; */
+  --text-color: #09090b;
+  color-scheme: light;
 }
 
-[data-theme="dark"] {
-  --bg-color: #18181b;
+html.dark, [data-theme="dark"] {
+  --bg-color: #09090b;
   --text-color: #f4f4f5;
-  --primary-color: #3b82f6;
-  --card-bg: #27272a;
+  color-scheme: dark;
 }
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.25s, color 0.25s;
+html, body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes fadeIn {

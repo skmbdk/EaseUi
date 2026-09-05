@@ -1,12 +1,15 @@
 import AppRouter from "./router/AppRouter";
+import { ToastProvider } from "./components/Toast/Toast";
 
 type Props = {};
 
 function App({}: Props) {
   return (
-    <div className="min-h-screen w-full">
-      <AppRouter />
-    </div>
+    <ToastProvider position="top-right">
+      <div className="min-h-screen w-full">
+        <AppRouter />
+      </div>
+    </ToastProvider>
   );
 }
 

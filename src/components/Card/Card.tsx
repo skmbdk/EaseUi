@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/libs/utils";
@@ -10,10 +10,11 @@ const cardVariants = cva(
   {
     variants: {
       variant: {
-        light: "bg-white text-gray-800 shadow-lg hover:shadow-xl",
+        light:
+          "bg-white text-gray-800 shadow-lg hover:shadow-xl dark:bg-zinc-900 dark:text-gray-100 dark:border dark:border-zinc-800",
         dark: "bg-slate-800 text-white shadow-md hover:shadow-lg",
         outline:
-          "border border-gray-300 bg-transparent text-gray-800 dark:border-gray-700",
+          "border border-gray-300 bg-transparent text-gray-800 dark:border-zinc-700 dark:text-gray-100",
       },
       // hoverEffect: {
       //   none: "",

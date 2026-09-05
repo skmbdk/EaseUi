@@ -1,15 +1,20 @@
-// import CodeBlock from "@/components/Personal/CodeBlock";
 import { Button } from "@/components/Button/Button";
 import ComponentDemo from "../ComponentsDemo";
 import PropsTable from "@/components/Personal/PropsTable";
+import { useSelector } from "react-redux";
 
 const ButtonPage = () => {
+  const { mode } = useSelector(
+    (state: { theme: { mode: "light" | "dark" } }) => state.theme
+  );
+  const isDark = mode === "dark";
+
   const basicUsageCode = `
 import { Button } from "@/components/Button/Button"
 
 <Button variant="primary" animation="scaleIn" hoverAnimation="jiggle" size="sm">Jiggle</Button>
 <Button variant="secondary" animation="slideUp" hoverAnimation="bounce" size="lg">Bounce</Button>
-<Button variant="destructive" animation="fadeIn" size="xl">Scale</Button>
+<Button variant="outline" animation="fadeIn" hoverAnimation="scale" size="xl">Scale</Button>
 <Button variant="dark" animation="bounceIn" hoverAnimation="none" size="sm">Dark</Button>`;
 
   const propsData = [
@@ -40,23 +45,22 @@ import { Button } from "@/components/Button/Button"
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-12">
+    <div className={`max-w-4xl mx-auto p-6 space-y-12 transition-colors duration-200 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
       <header className="space-y-2">
-        <p
-          className="text-4xl font-bold tracking-tight"
-          style={{ color: "var(--text-color)" }}
-        >
+        <h1 className={`text-4xl font-bold tracking-tight ${isDark ? "text-gray-100" : "text-gray-900"}`}>
           Button
-        </p>
-        <p className="text-lg text-gray-600">
+        </h1>
+        <p className={`text-lg ${isDark ? "text-gray-400" : "text-gray-600"}`}>
           Displays a button or a component that looks like a button.
         </p>
       </header>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Usage</h2>
+        <h2 className={`text-2xl font-semibold ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          Usage
+        </h2>
         <ComponentDemo code={basicUsageCode}>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap items-center justify-center">
             <Button
               animation="scaleIn"
               variant="primary"
@@ -94,7 +98,9 @@ import { Button } from "@/components/Button/Button"
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">API Reference</h2>
+        <h2 className={`text-2xl font-semibold ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          API Reference
+        </h2>
         <PropsTable data={propsData} />
       </section>
     </div>

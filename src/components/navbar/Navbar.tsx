@@ -1,4 +1,3 @@
-// Navbar.tsx
 import { Slot } from "@radix-ui/react-slot";
 import React, { forwardRef, useEffect, useRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -13,9 +12,9 @@ const navbarVariants = cva(
   {
     variants: {
       variant: {
-        dark: "bg-slate-900 text-white",
-        light: "bg-white text-gray-800 shadow",
-        primary: "bg-indigo-600 text-white",
+        dark: "bg-slate-900 text-white border-slate-800",
+        light: "bg-white text-gray-800 shadow-sm border-gray-200",
+        primary: "bg-indigo-600 text-white border-indigo-500",
         glass: "backdrop-blur-md bg-white/10 text-white border border-white/20",
       },
       size: {
@@ -32,10 +31,13 @@ const navbarVariants = cva(
   }
 );
 
-interface NavbarProps
+export interface NavbarProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof navbarVariants> {
   asChild?: boolean;
+  logo?: React.ReactNode;
+  links?: { label: string; href: string }[];
+  action?: React.ReactNode;
   animation?: keyof typeof entranceAnimations;
   hoverAnimation?: keyof typeof hoverAnimations;
 }
@@ -47,6 +49,10 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
       variant,
       size,
       asChild = false,
+      logo,
+      links,
+      action,
+      children,
       animation = "fadeIn",
       hoverAnimation = "none",
       ...props
@@ -62,16 +68,20 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
     }, [animation]);
 
     const handleMouseEnter = () => {
-      hoverAnimations[hoverAnimation]?.(navbarRef.current!);
+      if (navbarRef.current) {
+        hoverAnimations[hoverAnimation]?.(navbarRef.current);
+      }
     };
 
     const handleMouseLeave = () => {
-      gsap.to(navbarRef.current, {
-        scale: 1,
-        rotation: 0,
-        y: 0,
-        duration: 0.1,
-      });
+      if (navbarRef.current) {
+        gsap.to(navbarRef.current, {
+          scale: 1,
+          rotation: 0,
+          y: 0,
+          duration: 0.1,
+        });
+      }
     };
 
     return (
@@ -87,15 +97,57 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
         onMouseLeave={handleMouseLeave}
         {...props}
       >
-        <h1>Logo</h1>
-        <div className="flex gap-5">
-          <a href="">Home</a>
-          <a href="">About</a>
-          <a href="">Customer</a>
-        </div>
-        <div>
-          <Button hoverAnimation="none">Profile</Button>
-        </div>
+        {children ? (
+          children
+        ) : (
+          <>
+            {logo ? (
+              typeof logo === "string" ? (
+                <h1 className="text-xl font-bold tracking-tight">{logo}</h1>
+              ) : (
+                logo
+              )
+            ) : (
+              <h1 className="text-xl font-bold tracking-tight">EaseUI</h1>
+            )}
+
+            <div className="flex items-center gap-6 text-sm font-medium">
+              {links ? (
+                links.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="hover:opacity-80 transition-opacity"
+                  >
+                    {link.label}
+                  </a>
+                ))
+              ) : (
+                <>
+                  <a href="#" className="hover:opacity-80 transition-opacity">
+                    Home
+                  </a>
+                  <a href="#" className="hover:opacity-80 transition-opacity">
+                    About
+                  </a>
+                  <a href="#" className="hover:opacity-80 transition-opacity">
+                    Services
+                  </a>
+                </>
+              )}
+            </div>
+
+            <div>
+              {action ? (
+                action
+              ) : (
+                <Button variant="primary" size="sm">
+                  Get Started
+                </Button>
+              )}
+            </div>
+          </>
+        )}
       </Comp>
     );
   }

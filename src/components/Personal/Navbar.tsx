@@ -1,65 +1,153 @@
+import { useState } from "react";
 import { toggleTheme } from "@/features/ThemeSlice";
 import { Moon, Search, Sun } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
   const { mode } = useSelector(
-    (state: { theme: { mode: string } }) => state.theme
+    (state: { theme: { mode: "light" | "dark" } }) => state.theme
   );
-  console.log("this is theme->", mode);
+
+  const isDark = mode === "dark";
+
+  const availableComponents = [
+    "button",
+    "card",
+    "modal",
+    "input",
+    "navbar",
+    "tooltip",
+    "dropdown",
+    "tabs",
+    "accordion",
+    "badge",
+    "avatar",
+    "toast",
+    "skeleton",
+    "switch",
+    "drawer",
+  ];
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return;
+
+    const matched = availableComponents.find((comp) => comp.includes(query));
+    if (matched) {
+      navigate(`/components/${matched}`);
+      setSearchQuery("");
+    } else {
+      navigate("/components/button");
+      setSearchQuery("");
+    }
+  };
 
   return (
-    <nav className="h-16 w-full flex items-center justify-between px-8">
-      <div className="flex items-center gap-10">
+    <nav
+      className={`h-16 w-full flex items-center justify-between px-4 sm:px-8 border-b transition-colors duration-200 sticky top-0 z-30 ${
+        isDark
+          ? "bg-zinc-950 border-zinc-800 text-gray-100"
+          : "bg-white border-gray-200 text-gray-900"
+      }`}
+    >
+      <div className="flex items-center gap-6 sm:gap-10">
         <h1
           onClick={() => navigate("/")}
-          className="font-bold text-2xl cursor-pointer"
+          className="font-bold text-2xl cursor-pointer tracking-tight"
         >
           EaseUi
         </h1>
 
-        <div className="hidden sm:flex items-center bg-transparent rounded-md px-3 py-1.5 shadow-xs shadow-gray-300 border border-gray-200">
-          <Search size={18} className="text-gray-500" />
+        <form
+          onSubmit={handleSearchSubmit}
+          className={`hidden sm:flex items-center rounded-md px-3 py-1.5 border transition-colors ${
+            isDark
+              ? "bg-zinc-900 border-zinc-700 text-gray-100"
+              : "bg-gray-100 border-gray-300 text-gray-900"
+          }`}
+        >
+          <Search
+            size={18}
+            className={isDark ? "text-gray-400" : "text-gray-500"}
+          />
           <input
             type="text"
-            placeholder="Search components"
-            className="ml-2 bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search components... (e.g. tooltip, button)"
+            className={`ml-2 bg-transparent outline-none text-sm w-56 lg:w-64 ${
+              isDark
+                ? "text-gray-100 placeholder:text-gray-500"
+                : "text-gray-900 placeholder:text-gray-500"
+            }`}
           />
-        </div>
+        </form>
       </div>
 
-      <ul className="hidden md:flex items-center gap-6 text-gray-500">
-        <li
-          onClick={() => navigate("components")}
-          className="cursor-pointer hover:text-black"
+      <div className="flex items-center gap-4">
+        <ul className="hidden md:flex items-center gap-6 font-medium text-sm">
+          <li
+            onClick={() => navigate("/components/button")}
+            className={`cursor-pointer transition-colors ${
+              location.pathname.startsWith("/components")
+                ? isDark
+                  ? "text-indigo-400 font-semibold"
+                  : "text-indigo-600 font-semibold"
+                : isDark
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            Components
+          </li>
+          <li
+            onClick={() => navigate("/documentation")}
+            className={`cursor-pointer transition-colors ${
+              location.pathname === "/documentation"
+                ? isDark
+                  ? "text-indigo-400 font-semibold"
+                  : "text-indigo-600 font-semibold"
+                : isDark
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            Documentation
+          </li>
+        </ul>
+
+        {/* Theme Toggle Button */}
+        <button
+          onClick={() => dispatch(toggleTheme())}
+          className={`p-2 rounded-full transition-colors ${
+            isDark
+              ? "hover:bg-zinc-800 text-yellow-400"
+              : "hover:bg-gray-100 text-gray-700"
+          }`}
+          aria-label="Toggle Theme"
+          title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {isDark ? (
+            <Sun size={20} className="text-yellow-400" />
+          ) : (
+            <Moon size={20} className="text-gray-700" />
+          )}
+        </button>
+
+        {/* Mobile Components Link */}
+        <button
+          onClick={() => navigate("/components/button")}
+          className="md:hidden px-3 py-1.5 text-xs bg-indigo-600 text-white rounded font-medium hover:bg-indigo-700 transition-colors"
         >
           Components
-        </li>
-        <li className="cursor-pointer hover:text-black">About</li>
-        <li className="cursor-pointer hover:text-black">Templates</li>
-        {mode === "dark" && (
-          <li
-            className="cursor-pointer p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-            onClick={() => dispatch(toggleTheme())}
-          >
-            <Sun size={20} className="text-yellow-400" />
-          </li>
-        )}
-        {mode === "light" && (
-          <li
-            className="cursor-pointer p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-            onClick={() => dispatch(toggleTheme())}
-          >
-            <Moon size={20} className="text-gray-600 dark:text-gray-400" />
-          </li>
-        )}
-      </ul>
-
-      {/* Mobile Hamburger */}
-      <button className="md:hidden text-gray-700">☰</button>
+        </button>
+      </div>
     </nav>
   );
 };

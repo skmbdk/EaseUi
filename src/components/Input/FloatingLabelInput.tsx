@@ -1,24 +1,9 @@
 import React, { useState } from "react";
 import { cn } from "@/libs/utils";
-import { cva } from "class-variance-authority";
-
-const wrapper = cva("relative w-full");
-const inputCls = cva(
-  "w-full bg-transparent border-b border-gray-500 pb-2 pt-6 focus:outline-none transition-all",
-  {
-    variants: {
-      size: {
-        sm: "text-sm",
-        md: "text-base",
-        lg: "text-lg",
-      },
-    },
-    defaultVariants: { size: "md" },
-  }
-);
+import { useSelector } from "react-redux";
 
 export interface FloatingLabelProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label: string;
   size?: "sm" | "md" | "lg";
 }
@@ -28,10 +13,15 @@ export const FloatingLabelInput = React.forwardRef<
   FloatingLabelProps
 >(({ label, size = "md", className, ...props }, ref) => {
   const [focused, setFocused] = useState(false);
+  const themeState = useSelector(
+    (state: { theme?: { mode: "light" | "dark" } }) => state?.theme
+  );
+  const isDark = themeState?.mode === "dark";
   const filled = !!(props.value ?? props.defaultValue);
   const shrink = focused || filled;
+
   return (
-    <div className={wrapper()}>
+    <div className="relative w-full">
       <input
         ref={ref}
         {...props}
@@ -43,11 +33,21 @@ export const FloatingLabelInput = React.forwardRef<
           setFocused(false);
           props.onBlur?.(e);
         }}
-        className={cn(inputCls({ size }), className)}
+        className={cn(
+          "w-full bg-transparent border-b pb-2 pt-6 focus:outline-none transition-all placeholder:text-transparent",
+          isDark
+            ? "border-zinc-700 text-gray-100 focus:border-indigo-400"
+            : "border-gray-400 text-gray-900 focus:border-indigo-600",
+          size === "sm" && "text-sm",
+          size === "lg" && "text-lg",
+          size === "md" && "text-base",
+          className
+        )}
       />
       <label
         className={cn(
-          "absolute left-0 top-2 origin-left text-gray-500 pointer-events-none transform transition-all",
+          "absolute left-0 top-2 origin-left pointer-events-none transform transition-all",
+          isDark ? "text-gray-400" : "text-gray-500",
           shrink ? "-translate-y-4 scale-75" : "translate-y-0 scale-100"
         )}
       >

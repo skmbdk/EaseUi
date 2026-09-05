@@ -1,7 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export type ThemeState = {
   mode: "light" | "dark";
+};
+
+const applyThemeToDOM = (mode: "light" | "dark") => {
+  if (typeof document !== "undefined") {
+    document.documentElement.setAttribute("data-theme", mode);
+    if (mode === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    }
+  }
 };
 
 const initialState: ThemeState = {
@@ -13,13 +26,16 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     toggleTheme: (state) => {
-      state.mode = state.mode === "light" ? "dark" : "light";
-      localStorage.setItem("theme", state.mode);
-      document.documentElement.setAttribute("data-theme", state.mode);
+      const nextMode = state.mode === "light" ? "dark" : "light";
+      state.mode = nextMode;
+      localStorage.setItem("theme", nextMode);
+      applyThemeToDOM(nextMode);
     },
-    setTheme: (state, action) => {
-      state.mode = action.payload;
-      document.documentElement.setAttribute("data-theme", action.payload);
+    setTheme: (state, action: PayloadAction<"light" | "dark">) => {
+      const nextMode = action.payload === "dark" ? "dark" : "light";
+      state.mode = nextMode;
+      localStorage.setItem("theme", nextMode);
+      applyThemeToDOM(nextMode);
     },
   },
 });
