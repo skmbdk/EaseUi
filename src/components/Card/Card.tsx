@@ -11,8 +11,9 @@ const cardVariants = cva(
     variants: {
       variant: {
         light:
-          "bg-white text-gray-800 shadow-lg hover:shadow-xl dark:bg-zinc-900 dark:text-gray-100 dark:border dark:border-zinc-800",
-        dark: "bg-slate-800 text-white shadow-md hover:shadow-lg",
+          "bg-white text-gray-900 shadow-md hover:shadow-lg border border-gray-200",
+        dark:
+          "bg-zinc-900 text-gray-100 shadow-md hover:shadow-lg border border-zinc-800",
         outline:
           "border border-gray-300 bg-transparent text-gray-800 dark:border-zinc-700 dark:text-gray-100",
       },

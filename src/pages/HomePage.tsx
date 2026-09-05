@@ -64,7 +64,12 @@ function App() {
               size="lg"
               hoverAnimation="scale"
               onClick={() =>
-                window.open("https://github.com/Devendradhote001/Easeui-project", "_blank")
+                window.open("https://github.com/skmbdk/EaseUi", "_blank")
+              }
+              className={
+                isDark
+                  ? "border-zinc-700 text-gray-100 hover:bg-zinc-800 bg-zinc-900/90"
+                  : "border-gray-300 text-gray-900 hover:bg-gray-100 bg-white shadow-sm"
               }
             >
               GitHub Repository
@@ -79,13 +84,23 @@ function App() {
           variant={isDark ? "dark" : "light"}
           size="lg"
           animate
-          className="border border-gray-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+          className={
+            isDark
+              ? "bg-zinc-900/90 text-gray-100 border border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+              : "bg-white text-gray-900 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+          }
         >
-          <div className="p-3 w-12 h-12 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 mb-4 flex items-center justify-center">
+          <div
+            className={`p-3 w-12 h-12 rounded-lg mb-4 flex items-center justify-center ${
+              isDark ? "bg-indigo-950/80 text-indigo-400" : "bg-indigo-50 text-indigo-600"
+            }`}
+          >
             <Zap size={24} />
           </div>
-          <h3 className="text-xl font-bold mb-2">GSAP Powered</h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+          <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+            GSAP Powered
+          </h3>
+          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
             Rich entrance and hover animations like jiggle, bounce, float3D, and wobble follow built directly into components.
           </p>
         </Card>
@@ -94,13 +109,23 @@ function App() {
           variant={isDark ? "dark" : "light"}
           size="lg"
           animate
-          className="border border-gray-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+          className={
+            isDark
+              ? "bg-zinc-900/90 text-gray-100 border border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+              : "bg-white text-gray-900 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+          }
         >
-          <div className="p-3 w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 mb-4 flex items-center justify-center">
+          <div
+            className={`p-3 w-12 h-12 rounded-lg mb-4 flex items-center justify-center ${
+              isDark ? "bg-purple-950/80 text-purple-400" : "bg-purple-50 text-purple-600"
+            }`}
+          >
             <Palette size={24} />
           </div>
-          <h3 className="text-xl font-bold mb-2">Tailwind & CVA</h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+          <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+            Tailwind & CVA
+          </h3>
+          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
             Class variance authority for seamless variant management, dark mode readiness, and effortless custom styling.
           </p>
         </Card>
@@ -109,13 +134,23 @@ function App() {
           variant={isDark ? "dark" : "light"}
           size="lg"
           animate
-          className="border border-gray-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+          className={
+            isDark
+              ? "bg-zinc-900/90 text-gray-100 border border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+              : "bg-white text-gray-900 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+          }
         >
-          <div className="p-3 w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 mb-4 flex items-center justify-center">
+          <div
+            className={`p-3 w-12 h-12 rounded-lg mb-4 flex items-center justify-center ${
+              isDark ? "bg-emerald-950/80 text-emerald-400" : "bg-emerald-50 text-emerald-600"
+            }`}
+          >
             <Code2 size={24} />
           </div>
-          <h3 className="text-xl font-bold mb-2">TypeScript First</h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+          <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+            TypeScript First
+          </h3>
+          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
             Fully typed component props and strict TypeScript interfaces for autocompletion and developer productivity.
           </p>
         </Card>
