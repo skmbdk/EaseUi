@@ -68,13 +68,13 @@ const Navbar = () => {
           onSubmit={handleSearchSubmit}
           className={`hidden sm:flex items-center rounded-md px-3 py-1.5 border transition-colors ${
             isDark
-              ? "bg-zinc-900 border-zinc-700 text-gray-100"
-              : "bg-gray-100 border-gray-300 text-gray-900"
+              ? "bg-zinc-900 border-zinc-700 text-zinc-100"
+              : "bg-white border-zinc-300 text-zinc-900 shadow-sm"
           }`}
         >
           <Search
             size={18}
-            className={isDark ? "text-gray-400" : "text-gray-500"}
+            className={isDark ? "text-zinc-400" : "text-zinc-500"}
           />
           <input
             type="text"
@@ -83,8 +83,8 @@ const Navbar = () => {
             placeholder="Search components... (e.g. tooltip, button)"
             className={`ml-2 bg-transparent outline-none text-sm w-56 lg:w-64 ${
               isDark
-                ? "text-gray-100 placeholder:text-gray-500"
-                : "text-gray-900 placeholder:text-gray-500"
+                ? "text-zinc-100 placeholder:text-zinc-500"
+                : "text-zinc-900 placeholder:text-zinc-400"
             }`}
           />
         </form>

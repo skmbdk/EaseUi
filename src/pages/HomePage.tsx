@@ -32,18 +32,37 @@ function App() {
     <div className="max-w-6xl mx-auto py-12 px-4 space-y-20">
       {/* Hero Section */}
       <section className="text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-sm font-semibold">
+        <div
+          className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-semibold transition-colors ${
+            isDark
+              ? "bg-indigo-950/60 border-indigo-800 text-indigo-300"
+              : "bg-indigo-50 border-indigo-200 text-indigo-700"
+          }`}
+        >
           <Sparkles size={16} />
           <span>Modern React & Tailwind UI Library</span>
         </div>
 
-        <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+        <h1
+          className={`text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight transition-colors ${
+            isDark ? "text-zinc-100" : "text-zinc-900"
+          }`}
+        >
           Build Beautiful Interfaces <br />
-          <span className="text-indigo-600 dark:text-indigo-400">With Zero Friction</span>
+          <span
+            className={isDark ? "text-indigo-400" : "text-indigo-600"}
+          >
+            With Zero Friction
+          </span>
         </h1>
 
-        <p className="max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400">
-          EaseUI provides lightweight, accessible, and highly customizable React components powered by Tailwind CSS and GSAP animations.
+        <p
+          className={`max-w-2xl mx-auto text-xl transition-colors ${
+            isDark ? "text-zinc-400" : "text-zinc-600"
+          }`}
+        >
+          EaseUI provides lightweight, accessible, and highly customizable React
+          components powered by Tailwind CSS and GSAP animations.
         </p>
 
         <div className="flex items-center justify-center gap-4 pt-4 flex-wrap">
@@ -68,8 +87,8 @@ function App() {
               }
               className={
                 isDark
-                  ? "border-zinc-700 text-gray-100 hover:bg-zinc-800 bg-zinc-900/90"
-                  : "border-gray-300 text-gray-900 hover:bg-gray-100 bg-white shadow-sm"
+                  ? "!bg-zinc-900 !text-zinc-100 !border-zinc-700 hover:!bg-zinc-800"
+                  : "!bg-white !text-zinc-900 !border-zinc-300 hover:!bg-zinc-100 shadow-sm font-semibold"
               }
             >
               GitHub Repository
@@ -86,22 +105,33 @@ function App() {
           animate
           className={
             isDark
-              ? "bg-zinc-900/90 text-gray-100 border border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
-              : "bg-white text-gray-900 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+              ? "!bg-zinc-900/90 !text-zinc-100 !border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+              : "!bg-white !text-zinc-900 !border-zinc-200 shadow-sm hover:shadow-md transition-shadow"
           }
         >
           <div
             className={`p-3 w-12 h-12 rounded-lg mb-4 flex items-center justify-center ${
-              isDark ? "bg-indigo-950/80 text-indigo-400" : "bg-indigo-50 text-indigo-600"
+              isDark
+                ? "bg-indigo-950/80 text-indigo-400"
+                : "bg-indigo-50 text-indigo-600"
             }`}
           >
             <Zap size={24} />
           </div>
-          <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          <h3
+            className={`text-xl font-bold mb-2 ${
+              isDark ? "text-zinc-100" : "text-zinc-900"
+            }`}
+          >
             GSAP Powered
           </h3>
-          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-            Rich entrance and hover animations like jiggle, bounce, float3D, and wobble follow built directly into components.
+          <p
+            className={`text-sm ${
+              isDark ? "text-zinc-400" : "text-zinc-600"
+            }`}
+          >
+            Rich entrance and hover animations like jiggle, bounce, float3D, and
+            wobble follow built directly into components.
           </p>
         </Card>
 
@@ -111,22 +141,33 @@ function App() {
           animate
           className={
             isDark
-              ? "bg-zinc-900/90 text-gray-100 border border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
-              : "bg-white text-gray-900 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+              ? "!bg-zinc-900/90 !text-zinc-100 !border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+              : "!bg-white !text-zinc-900 !border-zinc-200 shadow-sm hover:shadow-md transition-shadow"
           }
         >
           <div
             className={`p-3 w-12 h-12 rounded-lg mb-4 flex items-center justify-center ${
-              isDark ? "bg-purple-950/80 text-purple-400" : "bg-purple-50 text-purple-600"
+              isDark
+                ? "bg-purple-950/80 text-purple-400"
+                : "bg-purple-50 text-purple-600"
             }`}
           >
             <Palette size={24} />
           </div>
-          <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          <h3
+            className={`text-xl font-bold mb-2 ${
+              isDark ? "text-zinc-100" : "text-zinc-900"
+            }`}
+          >
             Tailwind & CVA
           </h3>
-          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-            Class variance authority for seamless variant management, dark mode readiness, and effortless custom styling.
+          <p
+            className={`text-sm ${
+              isDark ? "text-zinc-400" : "text-zinc-600"
+            }`}
+          >
+            Class variance authority for seamless variant management, dark mode
+            readiness, and effortless custom styling.
           </p>
         </Card>
 
@@ -136,22 +177,33 @@ function App() {
           animate
           className={
             isDark
-              ? "bg-zinc-900/90 text-gray-100 border border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
-              : "bg-white text-gray-900 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+              ? "!bg-zinc-900/90 !text-zinc-100 !border-zinc-800 shadow-sm hover:shadow-md transition-shadow"
+              : "!bg-white !text-zinc-900 !border-zinc-200 shadow-sm hover:shadow-md transition-shadow"
           }
         >
           <div
             className={`p-3 w-12 h-12 rounded-lg mb-4 flex items-center justify-center ${
-              isDark ? "bg-emerald-950/80 text-emerald-400" : "bg-emerald-50 text-emerald-600"
+              isDark
+                ? "bg-emerald-950/80 text-emerald-400"
+                : "bg-emerald-50 text-emerald-600"
             }`}
           >
             <Code2 size={24} />
           </div>
-          <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-gray-100" : "text-gray-900"}`}>
+          <h3
+            className={`text-xl font-bold mb-2 ${
+              isDark ? "text-zinc-100" : "text-zinc-900"
+            }`}
+          >
             TypeScript First
           </h3>
-          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-            Fully typed component props and strict TypeScript interfaces for autocompletion and developer productivity.
+          <p
+            className={`text-sm ${
+              isDark ? "text-zinc-400" : "text-zinc-600"
+            }`}
+          >
+            Fully typed component props and strict TypeScript interfaces for
+            autocompletion and developer productivity.
           </p>
         </Card>
       </section>
@@ -159,8 +211,16 @@ function App() {
       {/* Quick Start Section */}
       <section className="space-y-6">
         <div className="text-center space-y-2">
-          <h2 className="text-3xl font-bold">Quick Start</h2>
-          <p className="text-gray-600 dark:text-gray-400">Import EaseUI components into your React application in seconds.</p>
+          <h2
+            className={`text-3xl font-bold ${
+              isDark ? "text-zinc-100" : "text-zinc-900"
+            }`}
+          >
+            Quick Start
+          </h2>
+          <p className={isDark ? "text-zinc-400" : "text-zinc-600"}>
+            Import EaseUI components into your React application in seconds.
+          </p>
         </div>
 
         <div className="max-w-3xl mx-auto">
